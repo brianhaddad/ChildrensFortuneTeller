@@ -37,7 +37,7 @@ namespace SimpleFortuneTeller.Handling
                     break;
 
                 case ConsoleKey.RightArrow:
-                    if (selectionX + 1 <= layoutCols)
+                    if (selectionX + 1 < layoutCols)
                     {
                         selectionX += 1;
                         thisEvent = FortuneOptionEvent.OnScreenSelectionChange;
