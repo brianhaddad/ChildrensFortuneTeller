@@ -112,6 +112,10 @@ namespace SimpleFortuneTeller.Rendering
             }
         }
 
+        //stream writer flush method:
+        //https://blog.anarks2.com/Buffered-dotnet-console-1/
+        //Doesn't support setting the position or changing colors though. :(
+        //Also Console.OpenStandardInput() doesn't get a stream that can be written to here for some reason.
         public void DrawBuffer()
         {
             Console.CursorVisible = false;
