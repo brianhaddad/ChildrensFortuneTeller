@@ -7,7 +7,7 @@ namespace SimpleFortuneTeller.Rendering
     {
         private const int MaxWidth = 800;
         private const int MaxHeight = 800;
-        private string[] TextBuffer = new string[MaxWidth * MaxHeight];
+        private readonly string[] TextBuffer = new string[MaxWidth * MaxHeight];
         private int Width = 0;
         private int Height = 0;
         private ConsoleColor CurrentForegroundColor;
