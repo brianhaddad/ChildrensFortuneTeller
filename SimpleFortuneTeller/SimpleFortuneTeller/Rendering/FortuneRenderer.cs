@@ -13,6 +13,7 @@ namespace SimpleFortuneTeller.Rendering
         private static int LayoutRows = 0;
         private static int LayoutCols = 0;
 
+        private static string LastFortuneOptionsSiguature = "";
         private static List<string> SelectionResults;
 
         private const char WinUpperLeft = '\u2554';
@@ -63,7 +64,12 @@ namespace SimpleFortuneTeller.Rendering
         public static void RenderOptions(int tilePadding = 1, int tileMargin = 1)
         {
             var fortuneOptions = FortuneLogic.GetFortuneOptions();
-            //TODO: when the structure has changed we need to clear the buffer and screen as though there was a resize event
+            var newFortuneOptionsSignature = FortuneOptionsSignature(fortuneOptions);
+            if (newFortuneOptionsSignature != LastFortuneOptionsSiguature)
+            {
+                LastFortuneOptionsSiguature = newFortuneOptionsSignature;
+                RenderBuffer.ForceClear();
+            }
 
             var windowWidth = RenderBuffer.GetWidth();
             var windowHeight = RenderBuffer.GetHeight();
@@ -119,6 +125,9 @@ namespace SimpleFortuneTeller.Rendering
                 }
             }
         }
+
+        private static string FortuneOptionsSignature(IEnumerable<FortuneOption> fortuneOptions)
+            => string.Join(",", fortuneOptions.Select(x => x.OptionDisplay));
 
         private static void AddTile(string text, Rectangle bounds, ConsoleColor foreground, ConsoleColor background, bool includeUnderline = false)
         {

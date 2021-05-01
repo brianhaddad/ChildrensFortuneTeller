@@ -50,17 +50,22 @@ namespace SimpleFortuneTeller.Rendering
             Height = Math.Min(height, MaxHeight);
             if (Width != oldWidth || Height != oldHeight)
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-                for (var y = 0; y <= height + 1; y++)
-                {
-                    for (var x = 0; x < width; x++)
-                    {
-                        ProtectedXYWrite(x, y, " ");
-                    }
-                }
-                Console.Clear();
+                ForceClear();
             }
+        }
+
+        public void ForceClear()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            for (var y = 0; y <= Console.WindowHeight + 1; y++)
+            {
+                for (var x = 0; x < Console.WindowWidth; x++)
+                {
+                    ProtectedXYWrite(x, y, " ");
+                }
+            }
+            Console.Clear();
         }
 
         public void SetColors(ConsoleColor foreground, ConsoleColor background)

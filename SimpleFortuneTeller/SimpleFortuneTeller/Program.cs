@@ -27,8 +27,8 @@ namespace SimpleFortuneTeller
                         new FortuneOption
                         {
                             OptionDisplay = "Option B",
-                            ForegroundColor = ConsoleColor.Green,
-                            BackgroundColor = ConsoleColor.Black,
+                            ForegroundColor = ConsoleColor.DarkYellow,
+                            BackgroundColor = ConsoleColor.Cyan,
                         },
                     },
                 },
