@@ -74,10 +74,14 @@ namespace SimpleFortuneTeller.Handling
                         return FortuneOptionEvent.FinalSelectionMade;
                     }
             }
-
-            CurrentFortuneOption = (selectionY * layoutCols) + selectionX;
-            SetHighlightedFortuneOption();
-            return thisEvent;
+            var nextSelection = (selectionY * layoutCols) + selectionX;
+            if (nextSelection >= 0 && nextSelection < FortuneOptions.Count)
+            {
+                CurrentFortuneOption = nextSelection;
+                SetHighlightedFortuneOption();
+                return thisEvent;
+            }
+            return FortuneOptionEvent.Nothing;
         }
 
         private static void SetHighlightedFortuneOption()

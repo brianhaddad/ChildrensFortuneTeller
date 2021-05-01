@@ -13,6 +13,16 @@ namespace SimpleFortuneTeller.Rendering
         private ConsoleColor CurrentForegroundColor;
         private ConsoleColor CurrentBackgroundColor;
         private SortedDictionary<ConsoleColor, SortedDictionary<ConsoleColor, List<int>>> DrawDictionary;
+        /*
+         * Note:
+         * Thinking about trying something like a byte that is
+         * (backgroundConsoleColor << 4) | foregroundConsoleColor
+         * That key can be easily decoded (I think) and can be used
+         * for a reverse lookup to make sure we only have each index listed
+         * with one color pairing.
+         * It simplifies the DrawDictionary substantially as well.
+         * Could implement my own icomparable for the datatype if byte doesn't work.
+         * */
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;

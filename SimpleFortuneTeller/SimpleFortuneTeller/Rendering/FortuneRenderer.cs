@@ -63,11 +63,14 @@ namespace SimpleFortuneTeller.Rendering
         public static void RenderOptions(int tilePadding = 1, int tileMargin = 1)
         {
             var fortuneOptions = FortuneLogic.GetFortuneOptions();
+            //TODO: when the structure has changed we need to clear the buffer and screen as though there was a resize event
 
             var windowWidth = RenderBuffer.GetWidth();
             var windowHeight = RenderBuffer.GetHeight();
             var maxTileWidth = fortuneOptions.Max(x => x.OptionDisplay.Length) + (2 * tilePadding);
             var maxTilesPerRow = Math.Min((windowWidth - tileMargin) / (maxTileWidth + tileMargin), fortuneOptions.Count());
+            //TODO: if this ends up being 1 we can implement my line break code from CustomConsole
+            //and increase the minimum tile height to accomodate the maximum number of lines in one tile
             var actualTileWidth = (windowWidth - ((maxTilesPerRow + 1) * tileMargin)) / maxTilesPerRow;
             var actualTilesPerRow = (windowWidth - (2 * tileMargin)) / actualTileWidth;
             var numRows = (int)Math.Ceiling((decimal)fortuneOptions.Count() / actualTilesPerRow);
