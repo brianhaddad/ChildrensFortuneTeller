@@ -10,9 +10,9 @@ namespace SimpleFortuneTeller.Rendering
         private readonly string[] TextBuffer = new string[MaxWidth * MaxHeight];
         private int Width = 0;
         private int Height = 0;
-        private ConsoleColor CurrentForegroundColor;
-        private ConsoleColor CurrentBackgroundColor;
-        private SortedDictionary<ConsoleColor, SortedDictionary<ConsoleColor, List<int>>> DrawDictionary;
+        private int CombinedColorCode;
+        private SortedDictionary<int, List<int>> DrawDictionary;
+        private SortedDictionary<int, int> DrawDictionaryReverseLookup;
         /*
          * Note:
          * Thinking about trying something like a byte that is
@@ -29,7 +29,8 @@ namespace SimpleFortuneTeller.Rendering
 
         public void ClearBuffer(string to = "")
         {
-            DrawDictionary = new SortedDictionary<ConsoleColor, SortedDictionary<ConsoleColor, List<int>>>();
+            DrawDictionary = new SortedDictionary<int, List<int>>();
+            DrawDictionaryReverseLookup = new SortedDictionary<int, int>();
             if (to.Length > 1)
             {
                 to = to.Substring(0, 1);
@@ -69,10 +70,7 @@ namespace SimpleFortuneTeller.Rendering
         }
 
         public void SetColors(ConsoleColor foreground, ConsoleColor background)
-        {
-            CurrentForegroundColor = foreground;
-            CurrentBackgroundColor = background;
-        }
+            => CombinedColorCode = EncodeCombinedColor(foreground, background);
 
         public void WriteToBuffer(string text, int x, int y)
         {
@@ -84,53 +82,52 @@ namespace SimpleFortuneTeller.Rendering
             }
         }
 
+        private int EncodeCombinedColor(ConsoleColor foreground, ConsoleColor background)
+            => ((int)background << 4) | (int)foreground;
+
+        private ConsoleColor DecodeForegroundColor(int combinedColorCode)
+            => (ConsoleColor)(combinedColorCode & 0b00001111);
+
+        private ConsoleColor DecodeBackgroundColor(int combinedColorCode)
+            => (ConsoleColor)(combinedColorCode >> 4);
+
         private void LogColorPosition(int index)
         {
-            if (DrawDictionary.ContainsKey(CurrentBackgroundColor))
+            if (DrawDictionaryReverseLookup.ContainsKey(index))
             {
-                var foregroundCollection = DrawDictionary[CurrentBackgroundColor];
-                if (foregroundCollection.ContainsKey(CurrentForegroundColor))
-                {
-                    foregroundCollection[CurrentForegroundColor].Add(index);
-                }
-                else
-                {
-                    foregroundCollection.Add(CurrentForegroundColor, new List<int>
-                        {
-                            index,
-                        });
-                }
+                DrawDictionary[DrawDictionaryReverseLookup[index]].Remove(index);
+                DrawDictionaryReverseLookup[index] = CombinedColorCode;
             }
             else
             {
-                DrawDictionary.Add(CurrentBackgroundColor, new SortedDictionary<ConsoleColor, List<int>>
-                {
-                    { CurrentForegroundColor, new List<int>
-                        {
-                            index,
-                        }
-                    }
-                });
+                DrawDictionaryReverseLookup.Add(index, CombinedColorCode);
+            }
+            if (DrawDictionary.ContainsKey(CombinedColorCode))
+            {
+                DrawDictionary[CombinedColorCode].Add(index);
+            }
+            else
+            {
+                DrawDictionary.Add(CombinedColorCode, new List<int> { index });
             }
         }
 
         public void DrawBuffer()
         {
             Console.CursorVisible = false;
-            foreach (var backgroundKvp in DrawDictionary)
+            Console.SetWindowPosition(0, 0);
+            foreach (var dataKVP in DrawDictionary)
             {
-                Console.BackgroundColor = backgroundKvp.Key;
-                foreach (var foregroundKvp in backgroundKvp.Value)
+                Console.BackgroundColor = DecodeBackgroundColor(dataKVP.Key);
+                Console.ForegroundColor = DecodeForegroundColor(dataKVP.Key);
+                var arr = dataKVP.Value.ToArray();
+                for (var i = 0; i < arr.Length; i++)
                 {
-                    Console.ForegroundColor = foregroundKvp.Key;
-                    foreach (var index in foregroundKvp.Value)
+                    if (Console.WindowWidth >= Width && Console.WindowHeight >= Height)
                     {
-                        if (Console.WindowWidth >= Width && Console.WindowHeight >= Height)
-                        {
-                            Console.CursorLeft = index % Width;
-                            Console.CursorTop = index / Width;
-                            Console.Write(TextBuffer[index]);
-                        }
+                        Console.CursorLeft = arr[i] % Width;
+                        Console.CursorTop = arr[i] / Width;
+                        Console.Write(TextBuffer[arr[i]]);
                     }
                 }
             }

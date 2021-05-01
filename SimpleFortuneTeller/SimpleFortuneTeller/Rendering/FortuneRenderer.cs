@@ -15,6 +15,7 @@ namespace SimpleFortuneTeller.Rendering
 
         private static string LastFortuneOptionsSiguature = "";
         private static List<string> SelectionResults;
+        private static bool ClearedScreenForResults = false;
 
         private const char WinUpperLeft = '\u2554';
         private const char WinHorizontal = '\u2550';
@@ -44,13 +45,17 @@ namespace SimpleFortuneTeller.Rendering
                 RenderFinale(tilePadding, tileMargin);
             }
 
-            // Last steps:
             WriteAllGroupsToBuffer();
             RenderBuffer.DrawBuffer();
         }
 
         public static void RenderFinale(int tilePadding = 1, int tileMargin = 1)
         {
+            if (!ClearedScreenForResults)
+            {
+                ClearedScreenForResults = true;
+                RenderBuffer.ForceClear();
+            }
             //TODO: make a pretty results view
             Console.CursorTop = 0;
             foreach(var result in SelectionResults)
