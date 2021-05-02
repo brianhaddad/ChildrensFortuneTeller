@@ -62,7 +62,11 @@ namespace SimpleFortuneTeller.Rendering
                 GrandFinale = FinaleBuilder.Build();
             }
             var lines = WordWrapLine(GrandFinale, (Console.WindowWidth / 3) * 2);
-            AddTile(string.Join(Environment.NewLine, lines), new Rectangle(0, 0, Console.WindowWidth, Console.WindowHeight), ConsoleColor.Green, ConsoleColor.Black);
+            AddTile(
+                string.Join(Environment.NewLine, lines),
+                new Rectangle(tileMargin, tileMargin, Console.WindowWidth - (2 * tileMargin), Console.WindowHeight - (2 * tileMargin)),
+                ConsoleColor.Magenta,
+                ConsoleColor.Black);
         }
 
         public static void RenderOptions(int tilePadding = 1, int tileMargin = 1)
@@ -193,6 +197,10 @@ namespace SimpleFortuneTeller.Rendering
                 };
                 AddToGroup(tre, foreground, background);
             }
+            //TODO:
+            //For some reason adding the text last does result in it getting drawn last.
+            //Once it's all flattened in the buffer, the idea was for same color stuff
+            //to be drawn sequentially. This requires tedious troubleshooting. Good luck!
             AddCenteredText(text, bounds, foreground, background, includeUnderline);
         }
 
