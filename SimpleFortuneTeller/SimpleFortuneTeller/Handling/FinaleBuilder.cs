@@ -29,9 +29,13 @@ namespace SimpleFortuneTeller.Handling
         private static readonly string[] FinaleOptions = new[]
         {
             "You now live in the world of {0} and you're married to {1}. {2}",
-            "The world of {0} has banished you forever. {1} was left behind and has fallen ill and isn't getting any better. You've started a family with someone else, and {1} is only a memory now. {2}",
+            "The world of {0} has banished you forever. {1} was left behind when you left, has fallen ill, and isn't getting any better. You've started a family with someone else, and {1} is only a memory now. {2}",
             "{1} welcomes you to the world of {0} but isn't emotionally available so you start a family with someone random there. {2}",
             "You arrive in the world of {0} and after a few years you finally work up the courage to talk to {1}. You bungle the encounter and end up marrying someone else. {2}",
+            "Your life is a magical {0} \"Happily Ever After\" with {1}. {2}",
+            "Your dreams come true in the world of {0}. You marry {1}. {2}",
+            "When you arrive in the world of {0} you see {1} waiting to greet you. {1} says, \"{2}\" You stagger back a bit and smile. It doesn't matter. You know you will one day marry {1}.",
+            "{1} watches as you trip and fall face first into a pile of mud. {2} You aren't all that concerned though because it turns out the world of {0} is real. {1} smiles at you.",
         };
 
         private static readonly string[] RandomAdditions = new[]
@@ -42,6 +46,8 @@ namespace SimpleFortuneTeller.Handling
             "You have a good dog.",
             "Your kids are the rulers of the land.",
             "Your neighbors trample your flowers frequently.",
+            "You are, unfortunately, blind.",
+            "You enjoy wealth, comfort, and plenty of cheeseburgers.",
         };
 
         private static readonly ConsoleColor[] LightColors = new[]
