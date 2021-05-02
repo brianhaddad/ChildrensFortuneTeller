@@ -13,16 +13,6 @@ namespace SimpleFortuneTeller.Rendering
         private int CombinedColorCode;
         private SortedDictionary<int, List<int>> DrawDictionary;
         private SortedDictionary<int, int> DrawDictionaryReverseLookup;
-        /*
-         * Note:
-         * Thinking about trying something like a byte that is
-         * (backgroundConsoleColor << 4) | foregroundConsoleColor
-         * That key can be easily decoded (I think) and can be used
-         * for a reverse lookup to make sure we only have each index listed
-         * with one color pairing.
-         * It simplifies the DrawDictionary substantially as well.
-         * Could implement my own icomparable for the datatype if byte doesn't work.
-         * */
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;
@@ -112,7 +102,7 @@ namespace SimpleFortuneTeller.Rendering
             }
         }
 
-        //stream writer flush method:
+        //Stream writer flush method:
         //https://blog.anarks2.com/Buffered-dotnet-console-1/
         //Doesn't support setting the position or changing colors though. :(
         //Also Console.OpenStandardInput() doesn't get a stream that can be written to here for some reason.
