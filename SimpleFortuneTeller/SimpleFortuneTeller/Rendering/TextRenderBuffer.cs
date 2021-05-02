@@ -126,6 +126,9 @@ namespace SimpleFortuneTeller.Rendering
                     }
                 }
             }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.SetWindowPosition(0, 0);
         }
 
         private void ProtectedXYWrite(int x, int y, string text)
