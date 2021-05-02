@@ -17,6 +17,7 @@ namespace SimpleFortuneTeller.Handling
             NumberPool.Remove(selection);
             return selection;
         }
+
         private static void ResetNumberPool()
         {
             NumberPool = new List<int>();
@@ -36,6 +37,7 @@ namespace SimpleFortuneTeller.Handling
             "Your dreams come true in the world of {0}. You marry {1}. {2}",
             "When you arrive in the world of {0} you see {1} waiting to greet you. {1} says, \"{2}\" You stagger back a bit and smile. It doesn't matter. You know you will one day marry {1}.",
             "{1} watches as you trip and fall face first into a pile of mud. {2} You aren't all that concerned though because it turns out the world of {0} is real. {1} smiles at you.",
+            "{2} You feel like you've really settled in to the world of {0}. {1} really likes you and hopes you'll stay.",
         };
 
         private static readonly string[] RandomAdditions = new[]
@@ -48,6 +50,7 @@ namespace SimpleFortuneTeller.Handling
             "Your neighbors trample your flowers frequently.",
             "You are, unfortunately, blind.",
             "You enjoy wealth, comfort, and plenty of cheeseburgers.",
+            "You plan on staying here forever because you're so happy here.",
         };
 
         private static readonly ConsoleColor[] LightColors = new[]
