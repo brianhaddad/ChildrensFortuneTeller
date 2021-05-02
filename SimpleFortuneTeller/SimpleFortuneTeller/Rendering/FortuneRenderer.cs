@@ -80,12 +80,24 @@ namespace SimpleFortuneTeller.Rendering
             var windowHeight = RenderBuffer.GetHeight();
             var maxTileWidth = fortuneOptions.Max(x => x.OptionDisplay.Length) + (2 * tilePadding);
             var maxTilesPerRow = Math.Min((windowWidth - tileMargin) / (maxTileWidth + tileMargin), fortuneOptions.Count());
-            //TODO: if this ends up being 1 we can implement my line break code from CustomConsole
-            //and increase the minimum tile height to accomodate the maximum number of lines in one tile
+            var multiLineConsideration = 0;
+            if (maxTilesPerRow < 2)
+            {
+                var maxLines = 0;
+                maxTileWidth = ((windowWidth - (3 * tileMargin)) / 2) - (2 * tilePadding);
+                maxTilesPerRow = (windowWidth - tileMargin) / (maxTileWidth + (2 * tilePadding) + tileMargin);
+                foreach (var option in fortuneOptions)
+                {
+                    var lines = WordWrapLine(option.OptionDisplay, maxTileWidth);
+                    maxLines = Math.Max(maxLines, lines.Length);
+                    option.OptionDisplay = string.Join(Environment.NewLine, lines);
+                }
+                multiLineConsideration = maxLines;
+            }
             var actualTileWidth = (windowWidth - ((maxTilesPerRow + 1) * tileMargin)) / maxTilesPerRow;
             var actualTilesPerRow = (windowWidth - (2 * tileMargin)) / actualTileWidth;
             var numRows = (int)Math.Ceiling((decimal)fortuneOptions.Count() / actualTilesPerRow);
-            var minTileHeight = 3 + (tileMargin * 2);
+            var minTileHeight = 3 + (tileMargin * 2) + multiLineConsideration;
             
             if (numRows * minTileHeight > windowHeight)
             {
@@ -129,6 +141,27 @@ namespace SimpleFortuneTeller.Rendering
                     }
                 }
             }
+        }
+
+        private static string[] WordWrapLine(string line, int maxLineWidth)
+        {
+            var newLines = new List<string>();
+            var words = line.Split(" ");
+            var i = 0;
+            var lineCount = 1;
+            while (i < words.Length)
+            {
+                var nextLine = words[i];
+                while (i < words.Length - 1 && nextLine.Length + words[i + 1].Length + 1 < maxLineWidth)
+                {
+                    i++;
+                    nextLine += " " + words[i];
+                }
+                newLines.Add(nextLine);
+                lineCount++;
+                i++;
+            }
+            return newLines.ToArray();
         }
 
         private static string FortuneOptionsSignature(IEnumerable<FortuneOption> fortuneOptions)
@@ -193,26 +226,35 @@ namespace SimpleFortuneTeller.Rendering
         private static void AddCenteredText(string text, Rectangle centerBounds, ConsoleColor foreground, ConsoleColor background, bool includeUnderline = false)
         {
             var middleX = centerBounds.X + (centerBounds.Width / 2);
-            var middleY = centerBounds.Y + (centerBounds.Height / 2);
-            var textWidth = text.Length;
-            var startX = middleX - (textWidth / 2);
-            var element = new TextRenderElement
+            var lines = new List<string>();
+            if (text.IndexOf(Environment.NewLine) > -1)
             {
-                Text = text,
-                X = startX,
-                Y = middleY,
-            };
-            AddToGroup(element, foreground, background);
+                lines.AddRange(text.Split(Environment.NewLine));
+            }
+            else
+            {
+                lines.Add(text);
+            }
             if (includeUnderline)
             {
-                var underline = new TextRenderElement
-                {
-                    Text = LineFill('\u00AF', text.Length),
-                    X = startX,
-                    Y = middleY + 1,
-                };
-                AddToGroup(underline, foreground, background);
+                lines.Add(LineFill('\u00AF', lines.Max(x => x.Length)));
             }
+            var blockHeight = lines.Count;
+            var startY = centerBounds.Y + ((centerBounds.Height - blockHeight) / 2);
+            var elements = new List<TextRenderElement>();
+            for (var y = 0; y < blockHeight; y++)
+            {
+                var textWidth = lines[y].Length;
+                var startX = middleX - (textWidth / 2);
+                var element = new TextRenderElement
+                {
+                    Text = lines[y],
+                    X = startX,
+                    Y = startY + y,
+                };
+                elements.Add(element);
+            }
+            AddToGroup(elements, foreground, background);
         }
 
         private static void AddToGroup(TextRenderElement element, ConsoleColor foreground, ConsoleColor background)
