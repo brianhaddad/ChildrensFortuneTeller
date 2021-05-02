@@ -14,6 +14,7 @@ namespace SimpleFortuneTeller.Rendering
         private static int LayoutCols = 0;
 
         private static string LastFortuneOptionsSiguature = "";
+        private static string GrandFinale = "";
         private static List<string> SelectionResults;
         private static bool ClearedScreenForResults = false;
 
@@ -56,14 +57,12 @@ namespace SimpleFortuneTeller.Rendering
                 ClearedScreenForResults = true;
                 RenderBuffer.ForceClear();
             }
-            //TODO: make a pretty results view
-            Console.CursorTop = 0;
-            foreach(var result in SelectionResults)
+            if (string.IsNullOrEmpty(GrandFinale))
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine(result);
+                GrandFinale = FinaleBuilder.Build();
             }
+            var lines = WordWrapLine(GrandFinale, (Console.WindowWidth / 3) * 2);
+            AddTile(string.Join(Environment.NewLine, lines), new Rectangle(0, 0, Console.WindowWidth, Console.WindowHeight), ConsoleColor.Green, ConsoleColor.Black);
         }
 
         public static void RenderOptions(int tilePadding = 1, int tileMargin = 1)
