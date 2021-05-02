@@ -23,36 +23,42 @@ namespace SimpleFortuneTeller
                             OptionDisplay = "Cedric",
                             ForegroundColor = ConsoleColor.DarkBlue,
                             BackgroundColor = ConsoleColor.Yellow,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Draco",
                             ForegroundColor = ConsoleColor.White,
                             BackgroundColor = ConsoleColor.DarkGreen,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Cho Chang",
                             ForegroundColor = ConsoleColor.Cyan,
                             BackgroundColor = ConsoleColor.DarkBlue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Luna Lovegood",
                             ForegroundColor = ConsoleColor.DarkYellow,
                             BackgroundColor = ConsoleColor.Blue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Myrtle",
                             ForegroundColor = ConsoleColor.White,
                             BackgroundColor = ConsoleColor.DarkCyan,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Madam Pomfrey",
                             ForegroundColor = ConsoleColor.Black,
                             BackgroundColor = ConsoleColor.White,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                     },
                 },
@@ -68,18 +74,21 @@ namespace SimpleFortuneTeller
                             OptionDisplay = "Dexter",
                             ForegroundColor = ConsoleColor.White,
                             BackgroundColor = ConsoleColor.DarkBlue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Dee Dee",
                             ForegroundColor = ConsoleColor.Yellow,
                             BackgroundColor = ConsoleColor.Magenta,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Mandark",
                             ForegroundColor = ConsoleColor.Blue,
                             BackgroundColor = ConsoleColor.DarkYellow,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                     },
                 },
@@ -95,24 +104,28 @@ namespace SimpleFortuneTeller
                             OptionDisplay = "Deku",
                             ForegroundColor = ConsoleColor.DarkBlue,
                             BackgroundColor = ConsoleColor.Green,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Bakugo",
                             ForegroundColor = ConsoleColor.Red,
                             BackgroundColor = ConsoleColor.DarkCyan,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Dabi",
                             ForegroundColor = ConsoleColor.White,
                             BackgroundColor = ConsoleColor.DarkBlue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Kirishima",
                             ForegroundColor = ConsoleColor.Cyan,
                             BackgroundColor = ConsoleColor.Red,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                     },
                 },
@@ -128,36 +141,42 @@ namespace SimpleFortuneTeller
                             OptionDisplay = "Tinkerbell",
                             ForegroundColor = ConsoleColor.Yellow,
                             BackgroundColor = ConsoleColor.DarkGreen,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Aladdin",
                             ForegroundColor = ConsoleColor.Black,
                             BackgroundColor = ConsoleColor.Blue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Ariel",
                             ForegroundColor = ConsoleColor.Green,
                             BackgroundColor = ConsoleColor.DarkRed,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Prince Charming",
                             ForegroundColor = ConsoleColor.Yellow,
                             BackgroundColor = ConsoleColor.DarkBlue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Rapunzel",
                             ForegroundColor = ConsoleColor.Yellow,
                             BackgroundColor = ConsoleColor.DarkMagenta,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Gaston",
                             ForegroundColor = ConsoleColor.DarkYellow,
                             BackgroundColor = ConsoleColor.DarkRed,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                     },
                 },
@@ -173,18 +192,21 @@ namespace SimpleFortuneTeller
                             OptionDisplay = "Smeagol",
                             ForegroundColor = ConsoleColor.Red,
                             BackgroundColor = ConsoleColor.DarkCyan,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Legolas",
                             ForegroundColor = ConsoleColor.Yellow,
                             BackgroundColor = ConsoleColor.DarkGreen,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                         new FortuneOption
                         {
                             OptionDisplay = "Tauriel",
                             ForegroundColor = ConsoleColor.Red,
                             BackgroundColor = ConsoleColor.DarkBlue,
+                            NextOptions = FinaleBuilder.RandomizeFinaleOptions(),
                         },
                     },
                 },
