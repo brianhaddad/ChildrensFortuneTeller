@@ -79,6 +79,7 @@ namespace SimpleFortuneTeller.Rendering
                 RenderBuffer.ForceClear();
             }
 
+            //TODO: refactor to allow draw area to be passed in.
             var windowWidth = RenderBuffer.GetWidth();
             var windowHeight = RenderBuffer.GetHeight();
             var maxTileWidth = fortuneOptions.Max(x => x.OptionDisplay.Length) + (2 * tilePadding);
@@ -201,6 +202,7 @@ namespace SimpleFortuneTeller.Rendering
             //For some reason adding the text last does result in it getting drawn last.
             //Once it's all flattened in the buffer, the idea was for same color stuff
             //to be drawn sequentially. This requires tedious troubleshooting. Good luck!
+            //TODO: expand to allow for non-centered text too. Formatting choices!
             AddCenteredText(text, bounds, foreground, background, includeUnderline);
         }
 

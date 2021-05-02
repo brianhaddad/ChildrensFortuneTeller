@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleFortuneTeller.Rendering
 {
@@ -11,7 +12,7 @@ namespace SimpleFortuneTeller.Rendering
         private int Width = 0;
         private int Height = 0;
         private int CombinedColorCode;
-        private SortedDictionary<int, List<int>> DrawDictionary;
+        private SortedDictionary<int, SortedList<int, int>> DrawDictionary;
         private SortedDictionary<int, int> DrawDictionaryReverseLookup;
 
         public int GetWidth() => Width;
@@ -19,7 +20,7 @@ namespace SimpleFortuneTeller.Rendering
 
         public void ClearBuffer(string to = "")
         {
-            DrawDictionary = new SortedDictionary<int, List<int>>();
+            DrawDictionary = new SortedDictionary<int, SortedList<int, int>>();
             DrawDictionaryReverseLookup = new SortedDictionary<int, int>();
             if (to.Length > 1)
             {
@@ -94,11 +95,11 @@ namespace SimpleFortuneTeller.Rendering
             }
             if (DrawDictionary.ContainsKey(CombinedColorCode))
             {
-                DrawDictionary[CombinedColorCode].Add(index);
+                DrawDictionary[CombinedColorCode].Add(index, index);
             }
             else
             {
-                DrawDictionary.Add(CombinedColorCode, new List<int> { index });
+                DrawDictionary.Add(CombinedColorCode, new SortedList<int, int> { { index, index } });
             }
         }
 
@@ -114,7 +115,7 @@ namespace SimpleFortuneTeller.Rendering
             {
                 Console.BackgroundColor = DecodeBackgroundColor(dataKVP.Key);
                 Console.ForegroundColor = DecodeForegroundColor(dataKVP.Key);
-                var arr = dataKVP.Value.ToArray();
+                var arr = dataKVP.Value.Keys.ToArray();
                 for (var i = 0; i < arr.Length; i++)
                 {
                     if (Console.WindowWidth >= Width && Console.WindowHeight >= Height)
@@ -129,7 +130,9 @@ namespace SimpleFortuneTeller.Rendering
 
         private void ProtectedXYWrite(int x, int y, string text)
         {
-            if (Console.WindowWidth >= Width && Console.WindowHeight >= Height)
+            if (Console.WindowWidth >= Width
+                && Console.WindowHeight >= Height
+                && x < Console.WindowWidth)
             {
                 Console.CursorLeft = x;
                 Console.CursorTop = y;
